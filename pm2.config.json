@@ -1,0 +1,22 @@
+{
+    "apps": [
+      {
+        "name": "bot",
+        "script": "node_modules/.bin/ts-node",
+        "args": ["src/index.ts"],
+        "cwd": "./",
+        "watch": true,
+        "env": {
+          "NODE_ENV": "production"
+        },
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "error_file": "logs/my-app-error.log",
+        "out_file": "logs/my-app-out.log",
+        "merge_logs": true,
+        "max_restarts": 10,
+        "min_uptime": 5000,
+        "restart_delay": 1000
+      }
+    ]
+  }
+  
