@@ -12,7 +12,7 @@ module.exports = {
     });
     console.log(`Ready! Logged in as ${client.user.tag}`);
     client.user.setStatus("online");
-    client.user.setActivity("le pikachu de Dominus", {
+    client.user.setActivity("les débats sur le serveur", {
       type: ActivityType.Watching,
     });
   },
