@@ -23,6 +23,7 @@ module.exports = {
     ),
   async execute(interaction: BaseInteraction) {
     if (!(interaction instanceof ChatInputCommandInteraction)) return;
+    await interaction.deferReply({ ephemeral: true });
     const amount = interaction.options.getInteger("montant")!;
     const user = interaction.options.getUser("membre");
     if (user == null) return;
@@ -30,9 +31,8 @@ module.exports = {
     await user.send(
       `<@${user.id}> vous a donné ${amount} points en raison de votre investissement sur le serveur ! Faites \`/level\` pour consulter votre niveau.`
     );
-    await interaction.reply({
+    await interaction.editReply({
       content: `Ajout de ${amount} points à <@${user.id}>!`,
-      ephemeral: true,
     });
   },
 };
