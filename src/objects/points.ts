@@ -1,10 +1,7 @@
-import type { User } from "discord.js";
+import type { GuildMember, Role, User } from "discord.js";
 import niveauSchema from "../schemas/niveau";
 
-export async function addPoints(
-  member: User,
-  points: number
-): Promise<boolean> {
+export async function addPoints(member: User, points: number): Promise<number> {
   try {
     let theSchema = await niveauSchema.findOneAndUpdate(
       { _id: member.id },
@@ -18,11 +15,11 @@ export async function addPoints(
       });
     }
     await theSchema.save();
-    return true;
+    return theSchema.points ?? 0;
   } catch (error) {
     // Handle the error here if needed
     console.error("Error updating points:", error);
-    return false;
+    return 0;
   }
 }
 
@@ -66,10 +63,28 @@ export function getLevelWithProgressBar(points: number): [number, string] {
   while (points >= pointsNeeded) {
     points -= pointsNeeded;
     level++;
-    pointsNeeded = Math.floor(3.5 * Math.sqrt(level));
+    pointsNeeded = Math.floor(2 * Math.sqrt(level));
   }
 
   const progressBar = getProgressBar(points, pointsNeeded);
 
   return [level, progressBar];
+}
+
+export function getPlayerRanks(
+  member: GuildMember,
+  niveau: number
+): Role[] | boolean {
+  const levelRank: Record<number, string> = {
+    0: "1134530546362482698",
+    5: "1134530842388074496",
+    10: "1134531029860892752",
+    15: "1134601440267079791",
+  };
+  const nereastLevel = Math.floor(niveau / 5) * 5;
+  const justBeforeLevel = nereastLevel - 5 > 0 ? nereastLevel : 0;
+  const rankToGive = member.guild.roles.cache.get(levelRank[nereastLevel]);
+  const rankToRemove = member.guild.roles.cache.get(levelRank[justBeforeLevel]);
+  if (rankToGive === undefined || rankToRemove === undefined) return false;
+  return [rankToRemove, rankToGive];
 }
