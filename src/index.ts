@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import * as fs from "fs";
+import * as mongoose from "mongoose";
 import {
   Client,
   Collection,
@@ -90,3 +91,13 @@ client.on(Events.InteractionCreate, async (interaction: any) => {
 });
 
 client.login(process.env.botToken);
+(() => {
+  mongoose
+    .connect(process.env.dbLink!)
+    .then(() => {
+      // Connected successfully, do something here if needed
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+})();
