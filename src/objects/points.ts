@@ -60,7 +60,7 @@ function getProgressBar(progress: number, maxProgress: number): string {
 }
 
 export function getLevelWithProgressBar(points: number): [number, string] {
-  const originalPoints = 500;
+  const originalPoints = 0;
   let level = 0;
   let pointsNeeded = 5;
 
