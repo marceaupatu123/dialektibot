@@ -60,11 +60,10 @@ function getProgressBar(progress: number, maxProgress: number): string {
 }
 
 export function getLevelWithProgressBar(points: number): [number, string] {
-  const originalPoints = points;
   let level = 0;
   let pointsNeeded = 5;
 
-  while (originalPoints >= pointsNeeded) {
+  while (points >= pointsNeeded) {
     level++;
     points -= pointsNeeded;
     pointsNeeded = Math.floor(pointsNeeded + 4 * Math.log(level + 1));

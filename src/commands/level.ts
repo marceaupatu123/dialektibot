@@ -25,7 +25,7 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setTitle(`Niveau de ${user.username}`)
       .setDescription(
-        `<@${user.id}> est **niveau ${level[0]}** avec **${points} points**.`
+        `<@${user.id}> est **niveau ${level[0]}** et vous avez accumlé un total de **${points} points**.`
       )
       .addFields({ name: "Barre de progression", value: level[1] })
       .setFooter(footer);
