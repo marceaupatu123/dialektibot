@@ -1,6 +1,6 @@
 import { Events, type Message } from "discord.js";
 import { config } from "dotenv";
-import { addPoints } from "../objects/points";
+import { addPoints, getLevelWithProgressBar } from "../objects/points";
 config();
 
 module.exports = {
@@ -12,9 +12,17 @@ module.exports = {
     }
     const pointsToAdd = getPointsFromMessage(message.content.length);
     const user = message.member?.user;
+    let pointsAmount;
     if (user !== undefined) {
-      await addPoints(user, pointsToAdd);
+      pointsAmount = await addPoints(user, pointsToAdd);
+      if (pointsAmount !== undefined) {
+        const oldLevel = getLevelWithProgressBar(pointsAmount - pointsToAdd)[0];
+        const newLevel = getLevelWithProgressBar(pointsAmount)[0];
+        if (oldLevel !== newLevel)
+          await message.channel.send(
+            `<@${user?.id}> est passé niveau ${newLevel}!`
+          );
+      }
     }
-    console.log(`${user?.username!} à reçu ${pointsToAdd} points.`);
   },
 };

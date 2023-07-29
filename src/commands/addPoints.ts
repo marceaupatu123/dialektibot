@@ -32,9 +32,6 @@ module.exports = {
     const user = interaction.options.getUser("membre");
     if (user == null) return;
     const points = await addPoints(user, amount);
-    await user.send(
-      `<@${user.id}> vous a donné ${amount} points en raison de votre investissement sur le serveur ! Faites \`/level\` pour consulter votre niveau.`
-    );
     const member = interaction.guild.members.cache.get(user.id)!;
     const roles = getPlayerRanks(member, getLevelWithProgressBar(points)[0]);
     if (!Array.isArray(roles)) return false;
