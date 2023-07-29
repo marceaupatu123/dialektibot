@@ -39,7 +39,8 @@ export async function addPoints(
     }
     await theSchema.save();
     const roles = getPlayerRanks(member, getLevelWithProgressBar(points)[0]);
-    if (!Array.isArray(roles)) return 0;
+    if (!Array.isArray(roles) || roles[0] === roles[1])
+      return theSchema.points ?? 0;
     await member.roles.remove(roles[0]);
     await member.roles.add(roles[1]);
     return theSchema.points ?? 0;
