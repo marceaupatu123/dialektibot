@@ -16,6 +16,21 @@ function getPlayerRanks(member: GuildMember, niveau: number): Role[] | boolean {
   return [rankToRemove, rankToGive];
 }
 
+export function getLevelWithProgressBar(points: number): [number, string] {
+  let level = 0;
+  let pointsNeeded = 5;
+
+  while (points >= pointsNeeded) {
+    points -= pointsNeeded;
+    level++;
+    pointsNeeded = Math.floor(3.5 * Math.sqrt(level));
+  }
+
+  const progressBar = getProgressBar(points, pointsNeeded);
+
+  return [level, progressBar];
+}
+
 export async function addPoints(
   member: GuildMember,
   points: number
@@ -33,7 +48,10 @@ export async function addPoints(
       });
     }
     await theSchema.save();
-    const roles = getPlayerRanks(member, getLevelWithProgressBar(points)[0]);
+    const roles = getPlayerRanks(
+      member,
+      getLevelWithProgressBar(theSchema.points ?? 0)[0]
+    );
     if (!Array.isArray(roles) || roles[0] === roles[1])
       return theSchema.points ?? 0;
     await member.roles.remove(roles[0]);
@@ -77,19 +95,4 @@ function getProgressBar(progress: number, maxProgress: number): string {
   const progressBarWithInfo = `${progress} ${progressBar} ${maxProgress}`;
 
   return progressBarWithInfo;
-}
-
-export function getLevelWithProgressBar(points: number): [number, string] {
-  let level = 0;
-  let pointsNeeded = 5;
-
-  while (points >= pointsNeeded) {
-    points -= pointsNeeded;
-    level++;
-    pointsNeeded = Math.floor(3.5 * Math.sqrt(level));
-  }
-
-  const progressBar = getProgressBar(points, pointsNeeded);
-
-  return [level, progressBar];
 }
