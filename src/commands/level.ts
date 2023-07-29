@@ -4,7 +4,11 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
 } from "discord.js";
-import { getLevelWithProgressBar, getPlayerRanks, getPoints } from "../objects/points";
+import {
+  getLevelWithProgressBar,
+  getPlayerRanks,
+  getPoints,
+} from "../objects/points";
 import { footer } from "../messages.json";
 
 module.exports = {
@@ -20,7 +24,7 @@ module.exports = {
   async execute(interaction: BaseInteraction) {
     if (!(interaction instanceof ChatInputCommandInteraction)) return;
     const user = interaction.options.getUser("membre") ?? interaction.user;
-    const points = await getPoints(user);
+    const points = Math.floor(await getPoints(user));
     const level = getLevelWithProgressBar(points);
     const embed = new EmbedBuilder()
       .setTitle(`Niveau de ${user.username}`)
