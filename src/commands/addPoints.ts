@@ -3,11 +3,7 @@ import {
   type BaseInteraction,
   ChatInputCommandInteraction,
 } from "discord.js";
-import {
-  addPoints,
-  getLevelWithProgressBar,
-  getPlayerRanks,
-} from "../objects/points";
+import { addPoints } from "../objects/points";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -29,14 +25,9 @@ module.exports = {
     if (!(interaction instanceof ChatInputCommandInteraction)) return;
     await interaction.deferReply({ ephemeral: true });
     const amount = interaction.options.getInteger("montant")!;
-    const user = interaction.options.getUser("membre");
+    const user = interaction.options.getMember("membre");
     if (user == null) return;
-    const points = await addPoints(user, amount);
-    const member = interaction.guild.members.cache.get(user.id)!;
-    const roles = getPlayerRanks(member, getLevelWithProgressBar(points)[0]);
-    if (!Array.isArray(roles)) return false;
-    await member.roles.remove(roles[0]);
-    await member.roles.add(roles[1]);
+    await addPoints(user, amount);
     await interaction.editReply({
       content: `Ajout de ${amount} points à <@${user.id}>!`,
     });

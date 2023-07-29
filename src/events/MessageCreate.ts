@@ -11,9 +11,9 @@ module.exports = {
       return Math.random() * messageLength * 0.00005;
     }
     const pointsToAdd = getPointsFromMessage(message.content.length);
-    const user = message.member?.user;
+    const user = message.member;
     let pointsAmount;
-    if (user !== undefined) {
+    if (user !== null) {
       pointsAmount = await addPoints(user, pointsToAdd);
       if (pointsAmount !== undefined) {
         const oldLevel = getLevelWithProgressBar(pointsAmount - pointsToAdd)[0];
