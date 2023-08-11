@@ -9,7 +9,7 @@ function getPlayerRanks(member: GuildMember, niveau: number): Role[] | boolean {
     15: "1134601440267079791",
   };
   const nereastLevel = Math.floor(niveau / 5) * 5;
-  const justBeforeLevel = nereastLevel - 5 >= 0 ? nereastLevel : 0;
+  const justBeforeLevel = nereastLevel - 5 > 0 ? nereastLevel : 0;
   const rankToGive = member.guild.roles.cache.get(levelRank[nereastLevel]);
   const rankToRemove = member.guild.roles.cache.get(levelRank[justBeforeLevel]);
   if (rankToGive === undefined || rankToRemove === undefined) return false;
