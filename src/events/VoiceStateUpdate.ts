@@ -20,7 +20,7 @@ module.exports = {
       if (joinTime !== undefined) {
         const timeSpent = Date.now() - joinTime;
         const minutes = timeSpent / 1000 / 60;
-        const pointsToAdd = Math.random() * minutes * 0.005;
+        const pointsToAdd = Math.random() * minutes * 0.04;
         if (member.user !== null) {
           await addPoints(member, pointsToAdd);
          // console.log(`Added ${pointsToAdd} to ${member.user.username}`);

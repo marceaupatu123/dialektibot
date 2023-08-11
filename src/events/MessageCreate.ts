@@ -8,7 +8,7 @@ module.exports = {
   once: false,
   async execute(message: Message) {
     function getPointsFromMessage(messageLength: number): number {
-      return Math.random() * messageLength * 0.00005;
+      return Math.random() * messageLength * 0.0009;
     }
     const pointsToAdd = getPointsFromMessage(message.content.length);
     const user = message.member;
