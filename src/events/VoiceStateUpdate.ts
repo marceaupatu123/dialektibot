@@ -1,6 +1,6 @@
 import { Events, type GuildMember, type VoiceState } from "discord.js";
 import { config } from "dotenv";
-import { addPoints } from "src/objects/points";
+import { addPoints } from "../objects/points";
 config();
 
 const joinTimes = new Map<string, number>();
@@ -20,9 +20,10 @@ module.exports = {
       if (joinTime !== undefined) {
         const timeSpent = Date.now() - joinTime;
         const minutes = timeSpent / 1000 / 60;
-        const pointsToAdd = Math.random() * minutes * 0.0005;
+        const pointsToAdd = Math.random() * minutes * 0.005;
         if (member.user !== null) {
           await addPoints(member, pointsToAdd);
+         // console.log(`Added ${pointsToAdd} to ${member.user.username}`);
         }
       }
     } else if (oldState.channel === null && newState.channel !== null) {
