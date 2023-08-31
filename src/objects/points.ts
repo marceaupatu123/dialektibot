@@ -54,7 +54,8 @@ export async function addPoints(
       member,
       getLevelWithProgressBar(theSchema.points ?? 0)[0]
     );
-    if (!Array.isArray(roles)) return theSchema.points ?? 0;
+    if (!Array.isArray(roles) || roles[1] === roles[0])
+      return theSchema.points ?? 0;
     await member.roles.remove(roles[0]);
     await member.roles.add(roles[1]);
     return theSchema.points ?? 0;
