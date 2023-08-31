@@ -4,7 +4,11 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
 } from "discord.js";
-import { getLevelWithProgressBar, getPoints } from "../objects/points";
+import {
+  addPoints,
+  getLevelWithProgressBar,
+  getPoints,
+} from "../objects/points";
 import { footer } from "../messages.json";
 
 module.exports = {
@@ -29,6 +33,7 @@ module.exports = {
       )
       .addFields({ name: "Barre de progression", value: level[1] })
       .setFooter(footer);
+    await addPoints(interaction.guild.members.cache.get(user.id)!, 0);
     await interaction.reply({ ephemeral: true, embeds: [embed] });
   },
 };

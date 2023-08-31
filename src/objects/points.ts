@@ -7,9 +7,11 @@ function getPlayerRanks(member: GuildMember, niveau: number): Role[] | boolean {
     5: "1134530842388074496",
     10: "1134531029860892752",
     15: "1134601440267079791",
+    20: "1146829301229043832",
+    25: "1146829403389689897",
   };
   const nereastLevel = Math.floor(niveau / 5) * 5;
-  const justBeforeLevel = nereastLevel - 5 > 0 ? nereastLevel : 0;
+  const justBeforeLevel = nereastLevel - 5 > 0 ? nereastLevel - 5 : 0;
   const rankToGive = member.guild.roles.cache.get(levelRank[nereastLevel]);
   const rankToRemove = member.guild.roles.cache.get(levelRank[justBeforeLevel]);
   if (rankToGive === undefined || rankToRemove === undefined) return false;
@@ -23,7 +25,7 @@ export function getLevelWithProgressBar(points: number): [number, string] {
   while (points >= pointsNeeded) {
     points -= pointsNeeded;
     level++;
-    pointsNeeded = Math.floor(3.5 * Math.sqrt(level));
+    pointsNeeded = Math.floor(2.5 * Math.sqrt(level));
   }
 
   const progressBar = getProgressBar(points, pointsNeeded);
@@ -52,8 +54,7 @@ export async function addPoints(
       member,
       getLevelWithProgressBar(theSchema.points ?? 0)[0]
     );
-    if (!Array.isArray(roles) || roles[0] === roles[1])
-      return theSchema.points ?? 0;
+    if (!Array.isArray(roles)) return theSchema.points ?? 0;
     await member.roles.remove(roles[0]);
     await member.roles.add(roles[1]);
     return theSchema.points ?? 0;
