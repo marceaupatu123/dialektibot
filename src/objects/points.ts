@@ -9,6 +9,10 @@ function getPlayerRanks(member: GuildMember, niveau: number): Role[] | boolean {
     15: "1134601440267079791",
     20: "1146829301229043832",
     25: "1146829403389689897",
+    30: "1169973226319917056",
+    35: "1169973518679679076",
+    40: "1169974790656884736",
+    45: "1169974937918914560",
   };
   const nereastLevel = Math.floor(niveau / 5) * 5;
   const justBeforeLevel = nereastLevel - 5 > 0 ? nereastLevel - 5 : 0;
