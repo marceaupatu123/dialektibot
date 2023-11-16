@@ -130,6 +130,9 @@ module.exports = {
             },
           ],
         });
+        await owner!.user!.send(
+          `<@${interaction.user.id}> à acheté votre livre <#${channel.id}>`
+        );
       } catch (e) {
         console.log(e);
       }
