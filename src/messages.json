@@ -1,4 +1,5 @@
 {
     "commandDone":"Commande effectuée avec succès ✅",
+    "notAllowed": "❌",
     "footer": { "text": "Fait avec ❤️ par dominus_marceau", "iconURL": "https://cdn.discordapp.com/avatars/284036155928870912/f47336d8ca45a1b69d55420dd88c6bd4.webp?size=160" }
 }

@@ -1,4 +1,5 @@
 .env
+pdf/
 .vscode/
 dist/
 node_modules/
