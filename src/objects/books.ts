@@ -111,7 +111,7 @@ export async function generateBook(
   if (author.user === null) throw new Error("author.user is null");
   const opId = author.user?.id;
   const categories = getCategory(channel);
-  const folderPath = path.join("../dialektibot/pdf", opId);
+  const folderPath = path.join(__dirname, "../../pdf", opId);
 
   // Create the user's folder if it doesn't exist
   if (!fs.existsSync(folderPath)) {
@@ -123,7 +123,10 @@ export async function generateBook(
 
   do {
     dsbn = await generateDSBN(folderPath, editionHouse, categories);
-    dsbnExists = await isDSBNExistInSubfolders("../dialektibot/pdf", dsbn);
+    dsbnExists = await isDSBNExistInSubfolders(
+      path.join(__dirname, "../../pdf"),
+      dsbn
+    );
   } while (dsbnExists);
 
   const response = await fetch(attachment.url);
@@ -173,5 +176,7 @@ export async function getBook(dsbn: string, userID?: string): Promise<Buffer> {
     });
     userID = book?.authorID;
   }
-  return fs.readFileSync(`../dialektibot/pdf/${userID!}/${dsbn}.pdf`);
+  return fs.readFileSync(
+    path.join(__dirname, `../../pdf"/${userID!}/${dsbn}.pdf`)
+  );
 }
