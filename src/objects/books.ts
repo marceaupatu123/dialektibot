@@ -111,7 +111,7 @@ export async function generateBook(
   if (author.user === null) throw new Error("author.user is null");
   const opId = author.user?.id;
   const categories = getCategory(channel);
-  const folderPath = path.join("../dialektibot/pdf", opId);
+  const folderPath = path.join(__dirname, "../dialektibot/pdf", opId);
 
   // Create the user's folder if it doesn't exist
   if (!fs.existsSync(folderPath)) {
