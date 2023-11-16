@@ -6,7 +6,7 @@ import {
 } from "discord.js";
 import { addPoints } from "../objects/points";
 import { footer } from "../messages.json";
-import dialekticoin from "src/schemas/dialekticoin";
+import dialekticoin from "../schemas/dialekticoin";
 
 module.exports = {
   data: new SlashCommandBuilder()
