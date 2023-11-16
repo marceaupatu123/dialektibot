@@ -177,6 +177,6 @@ export async function getBook(dsbn: string, userID?: string): Promise<Buffer> {
     userID = book?.authorID;
   }
   return fs.readFileSync(
-    path.join(__dirname, `../../pdf"/${userID!}/${dsbn}.pdf`)
+    path.join(__dirname, `../../pdf/${userID!}/${dsbn}.pdf`)
   );
 }
