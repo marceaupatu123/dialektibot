@@ -84,7 +84,7 @@ async function isDSBNExistInSubfolders(
 
   for (const subfolder of subfolders) {
     const folderPath = path.join(rootFolder, subfolder);
-    const filePath = path.join(folderPath + "\\" + dsbn);
+    const filePath = path.join(folderPath + "/" + dsbn);
 
     if (fs.existsSync(filePath)) {
       return true; // DSBN exists in this subfolder
@@ -142,7 +142,7 @@ export async function generateBook(
   } catch (e) {
     console.log(e);
   }
-  fs.writeFileSync(folderPath + "\\" + dsbn, fileBuffer);
+  fs.writeFileSync(folderPath + "/" + dsbn, fileBuffer);
 
   const buttonBuy = new ButtonBuilder()
     .setCustomId("buy")
