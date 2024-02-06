@@ -8,7 +8,7 @@ import {
 } from "discord.js";
 import * as fs from "fs";
 import * as path from "path"; // Import the 'path' module for working with file paths
-import booksSchema from "../schemas/books";
+import BooksSchema from "../schemas/books";
 
 const editionHouseList = ["Auto-édition", "éditions Acutis"];
 
@@ -133,7 +133,7 @@ export async function generateBook(
   const fileBuffer = Buffer.from(await response.arrayBuffer());
   const splitted = dsbn.split(".");
   try {
-    const theSchema = new booksSchema({
+    const theSchema = new BooksSchema({
       _id: splitted[0],
       authorID: opId,
       price: 999,
@@ -171,7 +171,7 @@ export async function generateBook(
 
 export async function getBook(dsbn: string, userID?: string): Promise<Buffer> {
   if (userID === null) {
-    const book = await booksSchema.findOne({
+    const book = await BooksSchema.findOne({
       _id: dsbn,
     });
     userID = book?.authorID;
