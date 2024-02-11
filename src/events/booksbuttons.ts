@@ -79,7 +79,7 @@ module.exports = {
     if (customId === "buy") {
       await interaction.deferReply({ ephemeral: true });
       try {
-        const theBookSchema = await booksSchema.findOneAndUpdate({
+        const theBookSchema = await booksSchema.findOne({
           threadID: interaction.channel?.id,
         });
         if (theBookSchema === null)
@@ -98,7 +98,7 @@ module.exports = {
         const bookPrice = theBookSchema?.price;
         const wallet = theCoinSchema.coins;
         const newMoney = wallet! - bookPrice!;
-        if (newMoney < 0)
+        if (newMoney <= 0)
           return await interaction.editReply({
             content: "Tu n'as pas assez d'argents pour acheter ce livre! ❌",
           });

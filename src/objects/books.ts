@@ -9,6 +9,9 @@ import {
 import * as fs from "fs";
 import * as path from "path"; // Import the 'path' module for working with file paths
 import BooksSchema from "../schemas/books";
+import signpdf from "@signpdf/signpdf";
+import { P12Signer } from "@signpdf/signer-p12";
+import { plainAddPlaceholder } from "@signpdf/placeholder-plain";
 
 const editionHouseList = ["Auto-édition", "éditions Acutis"];
 
@@ -131,6 +134,21 @@ export async function generateBook(
 
   const response = await fetch(attachment.url);
   const fileBuffer = Buffer.from(await response.arrayBuffer());
+  const certificateBuffer = fs.readFileSync(
+    path.join(__dirname, "../../certificate/Dialektike.p12")
+  );
+  const signer = new P12Signer(certificateBuffer, {
+    passphrase: "DialektikeMarceau123",
+  });
+  const pdfWithPlaceholder = plainAddPlaceholder({
+    pdfBuffer: fileBuffer,
+    reason: "Valdation Automatique",
+    contactInfo: "marceaupatu123@gmail.com",
+    name: "Dialektikbot",
+    location: "DIALEKTIKE, DISCORD",
+  });
+  const signedPDF = await signpdf.sign(pdfWithPlaceholder, signer);
+
   const splitted = dsbn.split(".");
   try {
     const theSchema = new BooksSchema({
@@ -145,7 +163,7 @@ export async function generateBook(
   } catch (e) {
     console.log(e);
   }
-  fs.writeFileSync(folderPath + "/" + dsbn, fileBuffer);
+  fs.writeFileSync(folderPath + "/" + dsbn, signedPDF);
 
   const buttonBuy = new ButtonBuilder()
     .setCustomId("buy")
