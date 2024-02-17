@@ -10,7 +10,11 @@ module.exports = {
       process.env.salonLeaveId!
     ) as TextChannel;
     if (member != null && channel != null) {
-      await channel.send(`**<@${member.user.id}>** à quitté le serveur.`);
+      await channel.send(
+        `**<@${member.id}> (${
+          member.nickname ?? member.displayName
+        })** à quitté le serveur.`
+      );
     }
   },
 };
