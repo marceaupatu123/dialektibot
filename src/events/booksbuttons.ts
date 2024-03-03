@@ -98,7 +98,7 @@ module.exports = {
         const bookPrice = theBookSchema?.price;
         const wallet = theCoinSchema.coins;
         const newMoney = wallet! - bookPrice!;
-        if (newMoney <= 0)
+        if (newMoney < 0)
           return await interaction.editReply({
             content: "Tu n'as pas assez d'argents pour acheter ce livre! ❌",
           });
