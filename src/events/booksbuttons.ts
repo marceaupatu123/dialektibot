@@ -105,10 +105,12 @@ module.exports = {
 
         theCoinSchema.coins = newMoney;
         await theCoinSchema.save();
-        let theAuthorCoinSchema = await dialekticoin.findOneAndUpdate({
-          _id: owner?.id,
-          $inc: { coins: theBookSchema?.price },
-        });
+        let theAuthorCoinSchema = await dialekticoin.findOneAndUpdate(
+          {
+            _id: owner?.id,
+          },
+          { $inc: { coins: theBookSchema?.price } }
+        );
         if (theAuthorCoinSchema == null) {
           // eslint-disable-next-line new-cap
           theAuthorCoinSchema = new dialekticoin({
