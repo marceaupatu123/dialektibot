@@ -54,8 +54,8 @@ module.exports = {
         return;
       }
       const oldMessage = interaction.message;
-      const newprice = parseInt(
-        repliedModal.fields.getTextInputValue("pricerowmodal")
+      const newprice = Math.abs(
+        parseInt(repliedModal.fields.getTextInputValue("pricerowmodal"))
       );
       try {
         const theSchema = await booksSchema.findOneAndUpdate(
