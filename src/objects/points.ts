@@ -13,6 +13,7 @@ function getPlayerRanks(member: GuildMember, niveau: number): Role[] | boolean {
     35: "1169973518679679076",
     40: "1169974790656884736",
     45: "1169974937918914560",
+    50: "1169974937918914560",
   };
   const nereastLevel = Math.floor(niveau / 5) * 5;
   const justBeforeLevel = nereastLevel - 5 > 0 ? nereastLevel - 5 : 0;
@@ -29,7 +30,7 @@ export function getLevelWithProgressBar(points: number): [number, string] {
   while (points >= pointsNeeded) {
     points -= pointsNeeded;
     level++;
-    pointsNeeded = Math.floor(2.5 * Math.sqrt(level));
+    pointsNeeded = Math.floor(2.5 * Math.sqrt(level) + 0.35 * level);
   }
 
   const progressBar = getProgressBar(points, pointsNeeded);
